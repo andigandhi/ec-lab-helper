@@ -21,10 +21,13 @@
     <button onClick="show('CVA')">Add a new CVA</button>
     <button onClick="show('BCD')">Add a new BCD</button>
     <button onClick="show('GCPL')">Add a new GCPL</button><br><br>
-    <button onClick="exportConfig">Export Config File</button>
+    <button onClick="download()">Export Config File</button>
   </div>
 
   <div id="CVADiv" style="display: none;">
+    <label for="EiIn">Ei (V)</label><input id="EiIn" class="inputFields"><br><br>
+    <label for="E1In">E1 (V)</label><input id="E1In" class="inputFields"><br><br>
+    <label for="dEdtIn">dE/dt (mV/s)</label><input id="dEdtIn" class="inputFields"><br><br><br><br>
     <button onClick="add('CVA',false)">Abort</button>
     <button onClick="add('CVA',true)">Add to routine</button>
   </div>

@@ -3,3 +3,7 @@ html {
     color: #FFFFFF;
     text-align: center;
 }
+
+label {
+    margin-right: 10px;
+}
