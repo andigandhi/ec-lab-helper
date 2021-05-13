@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>EC-Lab config generator</title>
   <meta name="author" content="andigandhi">
-  <meta name="description" content="A little program to help creating a EC-Lab config">
+  <meta name="description" content="A little program to help creating a EC-Lab configs">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="style.css" rel="stylesheet">
@@ -14,6 +14,30 @@
 <body>
 
   <h1>EC-Lab config generator</h1>
+
+  <table id="overviewTable"></table>
+
+  <div id="addButtonsDiv">
+    <button onClick="show('CVA')">Add a new CVA</button>
+    <button onClick="show('BCD')">Add a new BCD</button>
+    <button onClick="show('GCPL')">Add a new GCPL</button><br><br>
+    <button onClick="exportConfig">Export Config File</button>
+  </div>
+
+  <div id="CVADiv" style="display: none;">
+    <button onClick="add('CVA',false)">Abort</button>
+    <button onClick="add('CVA',true)">Add to routine</button>
+  </div>
+
+  <div id="BCDDiv" style="display: none;">
+    <button onClick="add('BCD',false)">Abort</button>
+    <button onClick="add('BCD',true)">Add to routine</button>
+  </div>
+
+  <div id="GCPLDiv" style="display: none;">
+    <button onClick="add('GCPL',false)">Abort</button>
+    <button onClick="add('GCPL',true)">Add to routine</button>
+  </div>
 
   <script src="js/ecLab.js"></script>
 </body>
