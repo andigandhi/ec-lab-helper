@@ -15,6 +15,11 @@
 
   <h1>EC-Lab config generator</h1>
 
+  <div id="rangeDiv">
+    <label for="lowerBound">Lower voltage boundary (V)</label><input id="lowerBound" class="inputFields"><br><br>
+    <label for="upperBound">Upper voltage boundary (V)</label><input id="upperBound" class="inputFields"><br><br>
+  </div>
+
   <div id="overviewDiv"></div>
 
   <div id="addButtonsDiv">
@@ -25,8 +30,6 @@
   </div>
 
   <div id="CVADiv" style="display: none;">
-    <label for="EiIn">Ei (V)</label><input id="EiIn" class="inputFields"><br><br>
-    <label for="E1In">E1 (V)</label><input id="E1In" class="inputFields"><br><br>
     <label for="dEdtIn">dE/dt (mV/s)</label><input id="dEdtIn" class="inputFields"><br><br><br><br>
     <button onClick="add('CVA',false)">Abort</button>
     <button onClick="add('CVA',true)">Add to routine</button>

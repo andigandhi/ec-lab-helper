@@ -14,7 +14,7 @@ function add(elem, save) {
     }
 }
 
-function addParamsToTable(methode) {
+function addParamsToTable(methode, short) {
     addParamsToOut(methode)
 
     var outDiv = document.getElementById('overviewDiv');
@@ -35,26 +35,22 @@ function addParamsToTable(methode) {
 function addParamsToOut(methode) {
     if (methode == "CVA") addCvaToOut();
     else if (methode == "BCD") addBcdToOut();
-
-    console.log(methodes);
 }
 
 function addCvaToOut() {
-    var ei = document.getElementById("EiIn").value;
-    var e1 = document.getElementById("E1In").value;
     var dedt = document.getElementById("dEdtIn").value;
 
     methodes[methodes.length] = 
         `
 Technique : `+(methodes.length+1)+`
 Cyclic Voltammetry Advanced
-Ei (V)              `+ei+`               
+Ei (V)              lowerVoltageBoundary               
 vs.                 Eoc                 
 ti (h:m:s)          0:00:10,0000        
 dti (s)             1,0000              
 dE/dt               `+dedt+`             
 dE/dt unit          mV/s                
-E1 (V)              `+e1+`               
+E1 (V)              upperVoltageBoundary               
 vs.                 Ref                 
 t1 (h:m:s)          0:00:0,0000         
 dt1 (s)             0,1000              
@@ -78,6 +74,7 @@ Ef (V)              0,000
 vs.                 Eoc                 
 tf (h:m:s)          0:00:0,0000         
 dtf (s)             0,1000              `;
+    
 }
 
 function addBcdToOut() {
@@ -91,9 +88,9 @@ unit Is1            mA
 N1                  1,00                
 I1 sign             > 0                 
 t1 (h:m:s)          11:00:0,0000        
-EM1 (V)             0,400               
+EM1 (V)             upperVoltageBoundary               
 EM1 vs.             Ref                 
-EM2 (V)             -0,200              
+EM2 (V)             lowerVoltageBoundary              
 EM2 vs.             Ref                 
 dE1 (mV)            0,00                
 dt1 (s)             10,0000             
@@ -128,12 +125,13 @@ use C               1                   `;
 
 // create and download the file
 function download(filename) {
+    // Header for the mps file
     var text = 
     `EC-LAB SETTING FILE
 
 Number of linked techniques : `+methodes.length+`
 
-Filename : C:\Users\andig\Desktop\mps\out.mps
+Filename : EC-Lab-config.mps
 
 Device : VMP-300
 Electrode connection : standard
@@ -164,10 +162,22 @@ Turn to OCV between techniques
 
     `;
 
+    // Add all the methods after the mps header
     for (var i = 0; i<methodes.length;i++) {
         text += methodes[i];
     }
 
+    // Get the lower and upper voltage boundaries
+    var lowVolt = document.getElementById("lowerBound").value.replace(".",",");
+    var uppVolt = document.getElementById("upperBound").value.replace(".",",");
+
+    // Put bounds into the text string
+    if (lowVolt != "") {
+        text = text.replace("lowerVoltageBoundary", lowVolt);
+        text = text.replace("upperVoltageBoundary", uppVolt);
+    }
+
+    // Create the download file and download it
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', "EC-Lab-config.mps");
