@@ -1,11 +1,15 @@
+
+// The whole stack of methods of the routine
 var methodes = [];
 
+// Shows a specific menu to add a testing method to the routine
 function show(elem) {
     document.getElementById(elem+'Div').style.display = "inline";
     document.getElementById('addButtonsDiv').style.display = "none";
 }
 
 
+// Adds the method to the stack and shows the main menu
 function add(elem, save) {
     document.getElementById(elem+'Div').style.display = "none";
     document.getElementById('addButtonsDiv').style.display = "inline";
@@ -14,14 +18,14 @@ function add(elem, save) {
     }
 }
 
-function addParamsToTable(methode, short) {
-    addParamsToOut(methode)
+function addParamsToTable(methode) {
+    var shortDescription = addParamsToOut(methode)
 
     var outDiv = document.getElementById('overviewDiv');
     var newDiv = document.createElement("div");
 
     newDiv.innerHTML = "<b>"+methode+"</b><br>";
-    newDiv.innerHTML += methodes[methodes.length-1];
+    newDiv.innerHTML += shortDescription;
 
     outDiv.appendChild(newDiv);
 }
@@ -33,8 +37,8 @@ function addParamsToTable(methode, short) {
 // **** All the methodes to add input to the output string ****
 
 function addParamsToOut(methode) {
-    if (methode == "CVA") addCvaToOut();
-    else if (methode == "BCD") addBcdToOut();
+    if (methode == "CVA") return addCvaToOut();
+    else if (methode == "BCD") return addBcdToOut();
 }
 
 function addCvaToOut() {
@@ -73,8 +77,11 @@ Reverse Scan        1
 Ef (V)              0,000               
 vs.                 Eoc                 
 tf (h:m:s)          0:00:0,0000         
-dtf (s)             0,1000              `;
-    
+dtf (s)             0,1000              
+
+`;
+
+    return "CV with a cycling speed of " + dedt + "mV/s";
 }
 
 function addBcdToOut() {
@@ -116,7 +123,11 @@ N2                  1,00
 I2 sign             > 0                 
 t2 (h:m:s)          11:00:0,0000        
 Return Ei           0                   
-use C               1                   `;
+use C               1                   
+
+`;
+
+    return "Battery Capacity Determination";
 }
 
 
